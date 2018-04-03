@@ -5,7 +5,6 @@ import { logout } from '../actions';
 
 class DrawerContainer extends Component {
   logoutPress() {
-    alert("Hello?");
     this.getToken().done();
   }
 

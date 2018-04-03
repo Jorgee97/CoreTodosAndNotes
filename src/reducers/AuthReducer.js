@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   password: '',
   loading: false,
   token: '',
+  info: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -28,8 +29,14 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, email: action.payload }
     case 'PASSWORD_CHANGE':
       return { ...state, password: action.payload }
+    case 'UNAME_CHANGE':
+      return { ...state, uname: action.payload }
     case 'LOGIN_LOADING':
       return { ...state, loading: true, error: '' }
+    case 'REGISTER_LOADING':
+      return { ...state, loading: true, error: '' }
+    case 'USER_REGISTERED':
+      return { ...INITIAL_STATE }
     default: 
       return state;
   }

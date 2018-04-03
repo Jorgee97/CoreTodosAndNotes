@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, CheckBox, AsyncStorage } from 'react-native';
+import { View, Text, CheckBox, AsyncStorage, ScrollView } from 'react-native';
 import { CircularButton, Card, CardSection, Button, List } from './common';
 import { connect } from 'react-redux';
 import { TodoLoad, TodoComplete } from '../actions';
@@ -22,7 +22,13 @@ class TodoList extends Component {
     let data = this.props.todoData;
     return data.map(item => 
       <CardSection>
-        <List check={<CheckBox value={item.completed} onValueChange={(event) => this._onStatusChanged(item.idtodos, event)} />}>
+        <List 
+          check={
+            <CheckBox 
+              value={item.completed} 
+              onChange={() => this._onStatusChanged(item.idtodos, !item.completed)} 
+            />
+          }>
           {item.text}
         </List>
       </CardSection>
@@ -32,7 +38,9 @@ class TodoList extends Component {
   render() {
     return (
       <View style={{ flex: 1, padding: 5 }}>
-        {this._renderTodos()}
+        <ScrollView>
+          {this._renderTodos()}
+        </ScrollView>
         <CircularButton onPress={this.onBottonPress.bind(this)}>
           +
         </CircularButton>

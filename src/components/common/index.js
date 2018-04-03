@@ -6,3 +6,5 @@ export * from './Spinner';
 export * from './CircularButton';
 export * from './Label';
 export * from './List';
+export * from './ButtonLogin';
+export * from './InputLogin';

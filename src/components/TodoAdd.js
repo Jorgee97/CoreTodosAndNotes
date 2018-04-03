@@ -14,32 +14,46 @@ class TodoAdd extends Component {
   }
 
   onButtonPress() {
-    const { todoText } = this.props;
-    this.props.TodoAddText(todoText);
-    this.props.navigation.navigate('Main');
+    const { todoText, token, iduser } = this.props;
+    this.props.TodoAddText(token, todoText, iduser);
   }
 
   render() {
     return (
-      <Card>
-        <CardSection>
+      <View>
+        <View style={Styles.containerStyle}>
           <Input 
-            label="TODO" 
             placeholder="Cook Eggs" 
             onChangeText={this.onTodoTextChanged.bind(this)} 
             value={this.props.todoText} />
+        </View>
+        <View style={Styles.containerStyle}>
           <Button onPress={this.onButtonPress.bind(this)}>
-            Add
+            Add Todo
           </Button>
-        </CardSection>
-      </Card>
+        </View>
+      </View>
     );
   }
+}
+
+const Styles = {
+  containerStyle: {
+    paddingLeft: 25,
+    paddingRight: 25,
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    position: 'relative',
+    elevation: 0.5,
+    marginTop: 10,
+  },
 }
 
 const mapStateToProps = state => {
   return {
     todoText: state.todo.todoText,
+    token: state.auth.token,
+    iduser: state.auth.iduser,
   };
 };
 

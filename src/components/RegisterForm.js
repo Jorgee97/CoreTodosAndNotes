@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Image } from 'react-native';
 import { Card, CardSection, InputLogin, ButtonLogin, Spinner, Label } from './common';
-import { LoginUser, emailChanged, passwordChanged } from '../actions';
+import { emailChanged, passwordChanged, unameChange, registerUser } from '../actions';
 
-class LoginForm extends Component {
+class RegisterForm extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: <Text onPress={() => navigation.navigate('Login')}> Back</Text>,
+  });
+
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
@@ -13,14 +17,13 @@ class LoginForm extends Component {
     this.props.passwordChanged(text);
   }
 
-  onBottonPress() {
-    const { email, password } = this.props;
-    this.props.LoginUser({ email, password });
+  onUnameChange(text) {
+    this.props.unameChange(text);
   }
 
-  _register() {
-    // Handle navigation
-    this.props.navigation.navigate('Register');
+  onBottonPress() {
+    const { email, password, uname } = this.props;
+    this.props.registerUser({ email, password, uname });
   }
 
   renderError() {
@@ -44,7 +47,7 @@ class LoginForm extends Component {
 
     return (
       <ButtonLogin onPress={this.onBottonPress.bind(this)}>
-        Log in
+        Sign up
       </ButtonLogin>
     );
   }
@@ -54,6 +57,13 @@ class LoginForm extends Component {
       <Card>
         <View style={styles.imageStyle}>
           <Image source={require('../img/CoreTodo.png')} style={{ width: 200, height: 50 }}/>
+        </View>
+        <View style={styles.containerStyle}>
+          <InputLogin
+            placeholder="Username"
+            onChangeText={this.onUnameChange.bind(this)}
+            value={this.props.uname}
+          />
         </View>
         <View style={styles.containerStyle}>
           <InputLogin
@@ -75,11 +85,6 @@ class LoginForm extends Component {
         </View>
         <View style={styles.containerStyle}>
           {this.renderButton()}
-        </View>
-        <View style={styles.footerStyle}>
-          <Text>
-            Don't have an account?<Text style={{ fontWeight: 'bold' }} onPress={this._register.bind(this)}> Sign Up</Text>
-          </Text>
         </View>
       </Card>
     );
@@ -125,24 +130,11 @@ const mapStateToProps = state => {
   return {
     email: state.auth.email,
     password: state.auth.password,
-    error: state.auth.error,
+    uname: state.auth.uname,
     loading: state.auth.loading,
-    isLogged: state.auth.isLoaded,
+    info: state.auth.info,
   };
 };
 
-LoginForm.navigationOptions = {
-  title: 'Login',
-  header: null,
-  headerLeft: null,
-  headerStyle: {
-    backgroundColor: '#2196f3',
-  },
-  headerTitleStyle: {
-    color: '#fff',
-    textAlign: "center",
-    flex: 1,
-  },
-};
 
-export default connect(mapStateToProps, { LoginUser, passwordChanged, emailChanged })(LoginForm);
+export default connect(mapStateToProps, { passwordChanged, emailChanged, unameChange, registerUser })(RegisterForm);

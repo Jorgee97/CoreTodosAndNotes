@@ -9,11 +9,24 @@ export const TodoChangeText = (text) => {
   };
 };
 
-export const TodoAddText = (text) => {
-  return {
-    type: 'TODO_ADD',
-    payload: text
-  };
+export const TodoAddText = (token, text, iduser) => {
+  return (dispatch) => {
+    axios.post(API_TODO + 'createTodo', {
+      iduser: iduser,
+      text: text,
+      token: token,
+    })
+    .then(response => {
+      if (response.data.added)
+      {
+        dispatch({ type: 'TODO_ADD' });
+        dispatch(NavigationActions.navigate({
+          routeName: 'Main'
+       }));
+      }
+    })
+    .catch(error => console.log(error));
+  }
 };
 
 export const TodoLoad = (token) => {
@@ -22,7 +35,6 @@ export const TodoLoad = (token) => {
       token: token
     })
     .then(response => {
-      console.log(response);
       if (response.length != 0) {
         dispatch({
           type: 'TODOS_USER',
@@ -37,7 +49,6 @@ export const TodoLoad = (token) => {
 };
 
 export const TodoComplete = (idtodos, token, completed) => {
-  alert(token);
   return (dispatch) => {
     axios.post(API_TODO + 'todoState', {
       completed: completed,
@@ -46,7 +57,8 @@ export const TodoComplete = (idtodos, token, completed) => {
     })
     .then(response => {
       dispatch({
-        type: 'TODO_COMPLETE'
+        type: 'TODO_COMPLETE',
+        payload: idtodos
       });
     })
     .catch((error) => console.log(error));

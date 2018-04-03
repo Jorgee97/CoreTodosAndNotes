@@ -22,7 +22,7 @@ const styles = {
     shadowOffset: { width: 5, height: 2, },
     shadowColor: '#000',
     shadowOpacity: 1.0,
-    marginTop: 3
+    marginTop: 2
   }
 };
 

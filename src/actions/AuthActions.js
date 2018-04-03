@@ -35,6 +35,29 @@ export const LoginUser = ({ email, password }) => {
   }
 };
 
+export const registerUser = ({ email, password, uname }) => {
+  return(dispatch) => {
+    dispatch({ type: 'REGISTER_LOADING'});
+    axios.post(API_AUTH + 'registerUser', {
+      uname: uname,
+      password: password,
+      email: email
+    })
+    .then(response => {
+      dispatch({
+        type: 'USER_REGISTERED',
+        payload: response.data.Message
+      });
+      dispatch(NavigationActions.navigate({
+        routeName: 'Login'
+      }));
+    })
+    .catch((error) => {
+      dispatch({ type: 'AUTH_ERROR', payload: 'There was an error trying to register the user, please try again, or contact with the admin.' });
+    });
+  }
+};
+
 export const loginWithToken = (token) => {
   return (dispatch) => {
     axios.post(API_AUTH + 'loginWithToken', {
@@ -81,3 +104,7 @@ export const emailChanged = (text) => {
 export const passwordChanged = (text) => {
   return { type: 'PASSWORD_CHANGE', payload: text };
 };
+
+export const unameChange = (text) => {
+  return { type: 'UNAME_CHANGE', payload: text };
+}

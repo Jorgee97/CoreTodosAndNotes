@@ -4,6 +4,7 @@ import { addNavigationHelpers, StackNavigator, DrawerNavigator } from 'react-nav
 import { Text } from 'react-native';
 
 import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 import TodoList from '../components/TodoList';
 import TodoAdd from '../components/TodoAdd';
 import Splash from '../components/Splash';
@@ -14,6 +15,7 @@ import { ListTodo, AddTodo, test } from '../utils/Stacks';
 const AuthAppScreens = StackNavigator({
   Splash: { screen: Splash },
   Login: { screen: LoginForm },
+  Register: { screen: RegisterForm },
 });
 
 const DrawerMenu = DrawerNavigator({
