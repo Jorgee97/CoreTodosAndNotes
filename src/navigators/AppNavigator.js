@@ -7,6 +7,7 @@ import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import TodoList from '../components/TodoList';
 import TodoAdd from '../components/TodoAdd';
+import CompletedTodo from '../components/CompletedTodo';
 import Splash from '../components/Splash';
 import DrawerContainer from '../components/DrawerContainer';
 import { addListener } from '../utils/redux';
@@ -21,6 +22,7 @@ const AuthAppScreens = StackNavigator({
 const DrawerMenu = DrawerNavigator({
  Main: { screen: ListTodo },
  Add: { screen:  AddTodo },
+ Completed: { screen: CompletedTodo },
 },
 {
   contentComponent: DrawerContainer,

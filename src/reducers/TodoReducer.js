@@ -21,6 +21,11 @@ export default (state = INITIAL_STATE, action) => {
               ? item : { ...item, completed: !item.completed }
         ) 
       };
+    case 'TODO_LIST_COMPLETED_ONLY':
+      return {
+        ...state,
+        todoData: state.todoData.every(item => item.completed === true)
+      }
     case 'REMOVE_TODO': 
       return { ...state, todoData: state.todoData.filter(item => item.idtodos !== action.payload)}
     default:

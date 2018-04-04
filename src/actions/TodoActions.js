@@ -48,6 +48,12 @@ export const TodoLoad = (token) => {
   }
 };
 
+export const TodoLoadCompleteOnly = () => {
+  return {
+    type: 'TODO_LIST_COMPLETED_ONLY'
+  };
+};
+
 export const TodoComplete = (idtodos, token, completed) => {
   return (dispatch) => {
     axios.post(API_TODO + 'todoState', {

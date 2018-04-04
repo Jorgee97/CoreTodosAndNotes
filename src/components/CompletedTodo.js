@@ -3,11 +3,11 @@ import { View, Text, CheckBox, AsyncStorage, ScrollView } from 'react-native';
 import { CircularButton, Card, CardSection, Button, List } from './common';
 import { ButtonGroup } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { TodoLoad, TodoComplete } from '../actions';
+import { TodoLoadCompleteOnly, TodoComplete } from '../actions';
 
-class TodoList extends Component {
+class CompletedTodo extends Component {
   state = {
-    index: 0
+    index: 1
   }
 
   onBottonPress() {
@@ -15,7 +15,7 @@ class TodoList extends Component {
   }
 
   componentDidMount() {
-    this.props.TodoLoad(this.props.token);
+    this.props.TodoLoadCompleteOnly();
   }
 
   _onStatusChanged(idtodos, status) {
@@ -25,8 +25,8 @@ class TodoList extends Component {
 
   updateIndex = (index) => {
     this.setState({index})
-    if (index === 1) {
-      this.props.navigation.navigate('Completed');
+    if (index === 0) {
+      this.props.navigation.navigate('Main');
     }
   }
 
@@ -55,7 +55,7 @@ class TodoList extends Component {
           selectedButtonStyle={{ backgroundColor: '#2196f3' }}
           selectedTextStyle={{ color: 'white' }}
           containerStyle={styles.ButtonGroupStyle} 
-          selectedIndex={0}
+          selectedIndex={1}
           buttons={buttons} 
           onPress={ this.updateIndex}
           textStyle={{ color: '#000' }}
@@ -71,7 +71,7 @@ class TodoList extends Component {
   }
 }
 
-TodoList.navigationOptions = {
+CompletedTodo.navigationOptions = {
   title: 'TodoList',
   headerStyle: {
     backgroundColor: '#2196f3',
@@ -104,4 +104,4 @@ const mapStatesToProps = state => {
   };
 };
 
-export default connect(mapStatesToProps, { TodoLoad, TodoComplete })(TodoList);
+export default connect(mapStatesToProps, { TodoLoadCompleteOnly, TodoComplete })(CompletedTodo);
