@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
+import { View, Text, AsyncStorage, NetInfo } from 'react-native';
 import { loginWithToken } from '../actions';
 import { connect } from 'react-redux';
 

@@ -8,3 +8,4 @@ export * from './Label';
 export * from './List';
 export * from './ButtonLogin';
 export * from './InputLogin';
+export * from './TextBox';

@@ -11,7 +11,9 @@ const Card = (props) => {
 
 const styles = {
   containerStyle: {
+    marginTop: 10,
     borderBottomWidth: 0,
+    borderRadius: 3,
     backgroundColor: '#fff',
     flexDirection: 'column',
     justifyContent: 'center',

@@ -54,6 +54,22 @@ export const TodoLoadCompleteOnly = () => {
   };
 };
 
+export const TodoDelete = (idtodos, token) => {
+  return (dispatch) => {
+    axios.post(API_TODO + 'todoDelete', {
+      idtodos: idtodos,
+      token: token
+    })
+    .then(response => {
+      dispatch({
+        type: 'REMOVE_TODO',
+        payload: idtodos
+      });
+    })
+    .catch((error) => alert("Ups! the server have reported an error, please try again."));
+  }
+};
+
 export const TodoComplete = (idtodos, token, completed) => {
   return (dispatch) => {
     axios.post(API_TODO + 'todoState', {

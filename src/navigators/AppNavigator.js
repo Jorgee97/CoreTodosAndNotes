@@ -7,11 +7,10 @@ import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import TodoList from '../components/TodoList';
 import TodoAdd from '../components/TodoAdd';
-import CompletedTodo from '../components/CompletedTodo';
 import Splash from '../components/Splash';
 import DrawerContainer from '../components/DrawerContainer';
 import { addListener } from '../utils/redux';
-import { ListTodo, AddTodo, test } from '../utils/Stacks';
+import { ListTodo, AddTodo, TodoCompleted, ListNotes, AddNote } from '../utils/Stacks';
 
 const AuthAppScreens = StackNavigator({
   Splash: { screen: Splash },
@@ -22,7 +21,9 @@ const AuthAppScreens = StackNavigator({
 const DrawerMenu = DrawerNavigator({
  Main: { screen: ListTodo },
  Add: { screen:  AddTodo },
- Completed: { screen: CompletedTodo },
+ Completed: { screen: TodoCompleted },
+ Notes: { screen: ListNotes },
+ AddNote: { screen: AddNote },
 },
 {
   contentComponent: DrawerContainer,

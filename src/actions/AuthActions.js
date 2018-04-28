@@ -2,6 +2,17 @@ import axios from 'axios';
 import { API_AUTH } from '../utils/types';
 import { NavigationActions } from 'react-navigation';
 import { AsyncStorage } from 'react-native';
+import Realm from 'realm';
+
+const personSchema  = {
+  name: 'person',
+  properties: {
+    iduser: 'int',
+    uname: 'string',
+    token: 'string',
+    isLogged: 'int'
+  }
+};
 
 export const LoginUser = ({ email, password }) => {
   return (dispatch) => {
@@ -11,13 +22,14 @@ export const LoginUser = ({ email, password }) => {
       password: password
     })
     .then(response => {
-      if (response.data.error) 
+      if (response.data.error)
         dispatch({ type: 'AUTH_ERROR', payload: response.data.error });
       else {
         AsyncStorage.setItem('userToken', response.data.token);
-        dispatch({ 
-          type: 'USER_LOGIN', 
-          payload: { 
+        insertOntoPersonSchema(response.data);
+        dispatch({
+          type: 'USER_LOGIN',
+          payload: {
             iduser: response.data.iduser,
             uname: response.data.uname,
             isLogged: response.data.isLogged,
@@ -27,12 +39,29 @@ export const LoginUser = ({ email, password }) => {
         dispatch(NavigationActions.navigate({
           routeName: 'Main'
         }));
-      } 
+      }
     })
     .catch((error) => {
       console.log(error);
     });
   }
+};
+
+export const insertOntoPersonSchema = (data) => {
+  Realm.open({schema: [personSchema]})
+    .then(realm => {
+      realm.write(() => {
+        const person = realm.create('person', {
+          iduser: data.iduser,
+          uname: data.uname,
+          token: data.token,
+          isLogged: data.isLogged ? 1 : 0,
+        });
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
 };
 
 export const registerUser = ({ email, password, uname }) => {
@@ -65,8 +94,8 @@ export const loginWithToken = (token) => {
     })
     .then(response => {
       dispatch({
-        type: 'USER_LOGIN', 
-        payload: { 
+        type: 'USER_LOGIN',
+        payload: {
           iduser: response.data.iduser,
           uname: response.data.uname,
           isLogged: response.data.isLogged,
@@ -107,4 +136,4 @@ export const passwordChanged = (text) => {
 
 export const unameChange = (text) => {
   return { type: 'UNAME_CHANGE', payload: text };
-}
+};

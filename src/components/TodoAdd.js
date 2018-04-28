@@ -7,7 +7,7 @@ import { TodoChangeText, TodoAddText } from '../actions';
 class TodoAdd extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: <Text onPress={() => navigation.navigate('Main')}> Back</Text>,
-  })
+  });
 
   onTodoTextChanged(text) {
     this.props.TodoChangeText(text);
@@ -15,16 +15,19 @@ class TodoAdd extends Component {
 
   onButtonPress() {
     const { todoText, token, iduser } = this.props;
-    this.props.TodoAddText(token, todoText, iduser);
+    if (todoText !== '')
+      this.props.TodoAddText(token, todoText, iduser);
+    else
+      alert(`Ups! you forgot to write your todo, let's try again`);
   }
 
   render() {
     return (
       <View>
         <View style={Styles.containerStyle}>
-          <Input 
-            placeholder="Cook Eggs" 
-            onChangeText={this.onTodoTextChanged.bind(this)} 
+          <Input
+            placeholder="Cook Eggs"
+            onChangeText={this.onTodoTextChanged.bind(this)}
             value={this.props.todoText} />
         </View>
         <View style={Styles.containerStyle}>

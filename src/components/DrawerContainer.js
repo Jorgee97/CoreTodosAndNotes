@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage } from 'react-native';
+import { View, Text, AsyncStorage, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { logout } from '../actions';
 
@@ -15,23 +15,52 @@ class DrawerContainer extends Component {
 
   render () {
     const { navigation } = this.props;
+    const { container, containerLogo, textStyle, logoStyle, footerStyle } = styles;
     return (
       <View>
+        <View style={containerLogo}>
+          <Image source={require('../img/CoreTodo.png')} style={logoStyle}/>
+        </View>
         <Text
-          onPress={() => navigation.navigate('Main')}>
-        List Todo
-        </Text>
-        <Text
-          onPress={() => navigation.navigate('Add')}>
-        Add Todo
-        </Text>
-        <Text
+          style={textStyle}
           onPress={this.logoutPress.bind(this)}>
         Logout
+        </Text>
+        <Text
+          style={textStyle}>
+          Settings      
+        </Text>
+        <Text
+          style={textStyle}>
+          Get Premium        
         </Text>
       </View>
     )
   }
+}
+
+const styles = {
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  containerLogo: {
+    height: 180,
+    backgroundColor: '#2696f3',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  textStyle: {
+    color: '#000',
+    fontSize: 14,
+    paddingLeft: 20,
+    paddingTop: 10,
+  },
+  logoStyle: { 
+    width: 200, 
+    height: 50,
+    alignSelf: 'center', 
+  },
 }
 
 export default connect(null, { logout })(DrawerContainer);

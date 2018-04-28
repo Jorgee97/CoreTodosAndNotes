@@ -24,7 +24,12 @@ export default (state = INITIAL_STATE, action) => {
     case 'TODO_LIST_COMPLETED_ONLY':
       return {
         ...state,
-        todoData: state.todoData.every(item => item.completed === true)
+        todoData: state.todoData.filter(item => item.completed === true)
+      }
+    case 'TODO_LIST_ACTIVE_ONLY':
+      return {
+        ...state,
+        todoData: state.todoData.filter(item => item.completed === false)
       }
     case 'REMOVE_TODO': 
       return { ...state, todoData: state.todoData.filter(item => item.idtodos !== action.payload)}

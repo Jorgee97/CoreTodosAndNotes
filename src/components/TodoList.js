@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
-import { View, Text, CheckBox, AsyncStorage, ScrollView } from 'react-native';
+import { View, Text, AsyncStorage, ScrollView, Alert, TouchableOpacity, Image } from 'react-native';
 import { CircularButton, Card, CardSection, Button, List } from './common';
-import { ButtonGroup } from 'react-native-elements';
+import { ButtonGroup, CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { TodoLoad, TodoComplete } from '../actions';
+import { TodoLoad, TodoComplete, TodoDelete } from '../actions';
 
 class TodoList extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'TodoList',
+    headerStyle: {
+      backgroundColor: '#2196f3',
+    },
+    headerTitleStyle: {
+      color: '#fff',
+      textAlign: 'center',
+      marginLeft: 90,
+    },
+      headerLeft: <Text style={{color: '#fff' }} onPress={() => navigation.navigate('DrawerOpen')}> Menu</Text>,
+  });
+  
   state = {
     index: 0
   }
@@ -28,19 +41,47 @@ class TodoList extends Component {
     if (index === 1) {
       this.props.navigation.navigate('Completed');
     }
+    if (index === 2) {
+      this.props.navigation.navigate('Notes');
+    }
+  }
+
+  _deleteTodo(idtodos) {
+    const { token } = this.props;
+    Alert.alert(
+      'Delete',
+      'do you want to delete this item?',
+      [
+        { text: 'Cancel', onPress: () => { return }},
+        { text: 'Yes', onPress: () => this.props.TodoDelete(idtodos, token)},
+      ],
+      { cancelable: false }
+    );
   }
 
   _renderTodos() {
     let data = this.props.todoData;
+    data = data.filter(item => item.completed !== true);
     return data.map(item => 
       <CardSection>
         <List 
           check={
             <CheckBox 
-              value={item.completed} 
-              onChange={() => this._onStatusChanged(item.idtodos, !item.completed)} 
+              size={22}
+              checkedColor='#2196f3'
+              checked={item.completed} 
+              containerStyle={styles.CheckBoxStyle}
+              onPress={() => this._onStatusChanged(item.idtodos, !item.completed)} 
             />
-          }>
+          }
+          deleteOption={
+            <TouchableOpacity style={styles.deleteStyle} onPress={() => this._deleteTodo(item.idtodos)}>
+              <Image
+                source={require('../img/trashx16.png')}
+              />
+            </TouchableOpacity>
+          }
+          >
           {item.text}
         </List>
       </CardSection>
@@ -48,7 +89,7 @@ class TodoList extends Component {
   }
 
   render() {
-    const buttons = ['Todo', 'Completed']
+    const buttons = ['Active', 'Completed', 'Notes']
     return (
       <View style={{ flex: 1, padding: 4 }}>
         <ButtonGroup 
@@ -71,19 +112,6 @@ class TodoList extends Component {
   }
 }
 
-TodoList.navigationOptions = {
-  title: 'TodoList',
-  headerStyle: {
-    backgroundColor: '#2196f3',
-  },
-  headerTitleStyle: {
-    color: '#fff',
-    textAlign: "center",
-    flex: 1,
-  },
-  headerLeft: null,
-};
-
 const styles = {
   ButtonGroupStyle: {
     backgroundColor: '#fff', 
@@ -91,6 +119,17 @@ const styles = {
     marginLeft: 0,
     marginTop: 0,
     margingBottom: 0,
+  }, 
+  CheckBoxStyle: {
+    backgroundColor: 'transparent', 
+    borderColor: 'transparent', 
+    height: 22,
+    alignSelf: 'flex-end',
+    marginRight: -10,
+  },
+  deleteStyle: {
+    color: 'red',
+    fontWeight: 'bold',
   }
 }
 
@@ -104,4 +143,4 @@ const mapStatesToProps = state => {
   };
 };
 
-export default connect(mapStatesToProps, { TodoLoad, TodoComplete })(TodoList);
+export default connect(mapStatesToProps, { TodoLoad, TodoComplete, TodoDelete })(TodoList);

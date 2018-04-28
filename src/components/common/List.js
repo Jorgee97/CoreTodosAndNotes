@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, CheckBox } from 'react-native';
 
-const List = ({ children, check }) => {
+const List = ({ children, check, deleteOption }) => {
   return (
     <View style={styles.listStyle}> 
       <Text style={styles.textStyle}>
@@ -9,6 +9,7 @@ const List = ({ children, check }) => {
       </Text>
       <View style={styles.checkStyle}>
         {check}
+        {deleteOption}
       </View>
     </View>
   )
@@ -28,6 +29,10 @@ const styles = {
   },
   textStyle: {
     marginRight: 20
+  },
+  deleteStyle: {
+    color: 'red',
+    fontWeight: 'bold',
   }
 };
 

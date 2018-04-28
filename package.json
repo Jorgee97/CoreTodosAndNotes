@@ -7,14 +7,21 @@
     "test": "jest"
   },
   "dependencies": {
+    "@redux-offline/redux-offline": "^2.3.3",
+    "appcenter": "^1.5.0",
+    "appcenter-analytics": "^1.5.0",
+    "appcenter-crashes": "^1.5.0",
     "axios": "^0.18.0",
     "react": "16.3.0-alpha.1",
     "react-native": "0.54.0",
     "react-native-elements": "^0.19.0",
+    "react-native-sqlite-2": "^1.6.0",
+    "react-native-sqlite-storage": "^3.3.4",
     "react-native-vector-icons": "^4.5.0",
     "react-navigation": "^1.4.0",
     "react-navigation-redux-helpers": "^1.0.2",
     "react-redux": "^5.0.7",
+    "realm": "^2.4.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
