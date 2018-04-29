@@ -5,9 +5,10 @@ import TodoAdd from '../components/TodoAdd';
 import CompletedTodo from '../components/CompletedTodo';
 import NotesList from '../components/NotesList';
 import NotesAdd from '../components/NotesAdd';
+import NotesEdit from '../components/NotesEdit';
 
 export const ListTodo = StackNavigator({
-  Main: { screen: TodoList }, 
+  Main: { screen: TodoList },
 });
 
 export const AddTodo = StackNavigator({
@@ -24,4 +25,8 @@ export const ListNotes = StackNavigator({
 
 export const AddNote = StackNavigator({
   AddNotes: { screen: NotesAdd },
+});
+
+export const EditNote = StackNavigator({
+  EditNotes: { screen: NotesEdit },
 });

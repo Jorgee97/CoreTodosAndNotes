@@ -16,6 +16,13 @@ export const NoteChangeText = (text) => {
   };
 };
 
+export const NoteIdNOte = (value) => {
+  return {
+    type: 'PASS_NOTES_AS_PARAMS',
+    payload: value
+  };
+};
+
 export const NoteCreateNote = (token, title, text) => {
   return (dispatch) => {
     axios.post(API_NOTES + 'createNote', {
@@ -30,6 +37,24 @@ export const NoteCreateNote = (token, title, text) => {
           routeName: 'Notes'
         }));
       }
+    })
+    .catch(error => alert('Ops! it looks like we have an error, please wait, we will resolve it as quick as a flash.'));
+  }
+};
+
+export const NoteEdit = (token, title, text, idnotes) => {
+  return(dispatch) => {
+    axios.post(API_NOTES + 'editNote', {
+      token: token,
+      title: title,
+      text: text,
+      idnotes: idnotes
+    })
+    .then(response => {
+      dispatch({ type: 'NOTES_EDIT' });
+      dispatch(NavigationActions.navigate({
+        routeName: 'Notes'
+      }))
     })
     .catch(error => alert('Ops! it looks like we have an error, please wait, we will resolve it as quick as a flash.'));
   }

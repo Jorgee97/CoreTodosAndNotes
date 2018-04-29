@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { Button, Input, TextBox } from './common';
 import { connect } from 'react-redux';
 import { NoteChangeText, NoteChangeTitle, NoteCreateNote  } from '../actions';
@@ -27,18 +27,18 @@ class NotesAdd extends Component {
 
   render() {
     return (
-      <View>
+      <ScrollView>
         <View style={Styles.containerStyle}>
           <Input
             placeholder="Title"
             onChangeText={this.onTitleChange.bind(this)}
-            value={this.props.todoText} />
+            value={this.props.noteTitle} />
         </View>
         <View style={Styles.containerStyle}>
           <TextBox
             placeholder="Note"
             onChangeText={this.onTextChange.bind(this)}
-            value={this.props.todoText}
+            value={this.props.noteText}
           />
         </View>
         <View style={Styles.containerStyle}>
@@ -46,7 +46,7 @@ class NotesAdd extends Component {
             Add Note
           </Button>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

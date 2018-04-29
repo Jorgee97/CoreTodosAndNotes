@@ -10,7 +10,7 @@ import TodoAdd from '../components/TodoAdd';
 import Splash from '../components/Splash';
 import DrawerContainer from '../components/DrawerContainer';
 import { addListener } from '../utils/redux';
-import { ListTodo, AddTodo, TodoCompleted, ListNotes, AddNote } from '../utils/Stacks';
+import { ListTodo, AddTodo, TodoCompleted, ListNotes, AddNote, EditNote } from '../utils/Stacks';
 
 const AuthAppScreens = StackNavigator({
   Splash: { screen: Splash },
@@ -24,6 +24,7 @@ const DrawerMenu = DrawerNavigator({
  Completed: { screen: TodoCompleted },
  Notes: { screen: ListNotes },
  AddNote: { screen: AddNote },
+ EditNote: { screen: EditNote },
 },
 {
   contentComponent: DrawerContainer,
@@ -43,7 +44,7 @@ class AppWithNavigationState extends Component {
     return (
       <AppNavigator
         navigation={addNavigationHelpers({
-          dispatch, 
+          dispatch,
           state: nav,
           addListener,
         })}

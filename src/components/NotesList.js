@@ -3,7 +3,7 @@ import { View, Text, ScrollView, Image, Alert, TouchableOpacity } from 'react-na
 import { CircularButton, CardSection, Button, List, Card } from './common';
 import { ButtonGroup, CheckBox } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { NoteList, NoteDelete } from '../actions';
+import { NoteList, NoteDelete, NoteChangeText, NoteChangeTitle, NoteIdNOte } from '../actions';
 
 class NotesList extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -52,6 +52,14 @@ class NotesList extends Component {
     );
   }
 
+  _editNote(idnotes, textNote, textTitle) {
+    const { token, NoteChangeText, NoteChangeTitle, NoteIdNOte } = this.props;
+    NoteChangeText(textNote);
+    NoteChangeTitle(textTitle);
+    NoteIdNOte(idnotes);
+    this.props.navigation.navigate('EditNote');
+  }
+
   _renderNotes() {
     return this.props.notesData.map(item =>
       <Card>
@@ -60,6 +68,11 @@ class NotesList extends Component {
           <TouchableOpacity style={styles.imgTrash} onPress={() => this._deleteNote(item.idnotes)}>
             <Image
               source={require('../img/trashx16.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.imgEdit} onPress={() => this._editNote(item.idnotes, item.text, item.title)}>
+            <Image
+              source={require('../img/edit.png')}
             />
           </TouchableOpacity>
         </CardSection>
@@ -119,6 +132,11 @@ const styles = {
     marginTop: 6,
     position: "absolute",
     right: 8
+  },
+  imgEdit: {
+    marginTop: 6,
+    position: 'absolute',
+    right: 40
   }
 };
 
@@ -126,7 +144,9 @@ const MapStatesToProps = state => {
   return {
     token: state.auth.token,
     notesData: state.notes.notesData,
+    noteText: state.notes.noteText,
+    noteTitle: state.notes.noteTitle,
   };
 };
 
-export default connect(MapStatesToProps, { NoteList, NoteDelete })(NotesList);
+export default connect(MapStatesToProps, { NoteList, NoteDelete, NoteChangeText, NoteChangeTitle, NoteIdNOte })(NotesList);

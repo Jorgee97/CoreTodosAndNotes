@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Card, CardSection, Input } from './common';
 import { TodoChangeText, TodoAddText } from '../actions';
@@ -23,7 +23,7 @@ class TodoAdd extends Component {
 
   render() {
     return (
-      <View>
+      <ScrollView>
         <View style={Styles.containerStyle}>
           <Input
             placeholder="Cook Eggs"
@@ -35,7 +35,7 @@ class TodoAdd extends Component {
             Add Todo
           </Button>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
