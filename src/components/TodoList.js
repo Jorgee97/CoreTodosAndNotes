@@ -18,7 +18,7 @@ class TodoList extends Component {
     },
       headerLeft: <Text style={{color: '#fff' }} onPress={() => navigation.navigate('DrawerOpen')}> Menu</Text>,
   });
-  
+
   state = {
     index: 0
   }
@@ -32,7 +32,7 @@ class TodoList extends Component {
   }
 
   _onStatusChanged(idtodos, status) {
-    const { token } = this.props; 
+    const { token } = this.props;
     this.props.TodoComplete(idtodos, token, status);
   }
 
@@ -62,16 +62,16 @@ class TodoList extends Component {
   _renderTodos() {
     let data = this.props.todoData;
     data = data.filter(item => item.completed !== true);
-    return data.map(item => 
+    return data.map(item =>
       <CardSection>
-        <List 
+        <List
           check={
-            <CheckBox 
+            <CheckBox
               size={22}
               checkedColor='#2196f3'
-              checked={item.completed} 
+              checked={item.completed}
               containerStyle={styles.CheckBoxStyle}
-              onPress={() => this._onStatusChanged(item.idtodos, !item.completed)} 
+              onPress={() => this._onStatusChanged(item.idtodos, !item.completed)}
             />
           }
           deleteOption={
@@ -92,12 +92,12 @@ class TodoList extends Component {
     const buttons = ['Active', 'Completed', 'Notes']
     return (
       <View style={{ flex: 1, padding: 4 }}>
-        <ButtonGroup 
+        <ButtonGroup
           selectedButtonStyle={{ backgroundColor: '#2196f3' }}
           selectedTextStyle={{ color: 'white' }}
-          containerStyle={styles.ButtonGroupStyle} 
+          containerStyle={styles.ButtonGroupStyle}
           selectedIndex={0}
-          buttons={buttons} 
+          buttons={buttons}
           onPress={ this.updateIndex}
           textStyle={{ color: '#000' }}
         />
@@ -114,15 +114,15 @@ class TodoList extends Component {
 
 const styles = {
   ButtonGroupStyle: {
-    backgroundColor: '#fff', 
+    backgroundColor: '#fff',
     width: '100%',
     marginLeft: 0,
     marginTop: 0,
     margingBottom: 0,
-  }, 
+  },
   CheckBoxStyle: {
-    backgroundColor: 'transparent', 
-    borderColor: 'transparent', 
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
     height: 22,
     alignSelf: 'flex-end',
     marginRight: -10,

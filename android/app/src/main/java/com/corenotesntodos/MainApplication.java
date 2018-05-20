@@ -1,4 +1,4 @@
-package com.navigationtest;
+package com.corenotesntodos;
 
 import android.app.Application;
 

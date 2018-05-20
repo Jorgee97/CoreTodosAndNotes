@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, AsyncStorage, NetInfo } from 'react-native';
+import { View, Text, AsyncStorage, NetInfo, Image } from 'react-native';
 import { loginWithToken } from '../actions';
 import { connect } from 'react-redux';
 
@@ -20,7 +20,10 @@ class Splash extends Component {
   render() {
     return (
       <View style={styles.screenStyle}>
-        <Text style={styles.logoStyle}>LOGO HERE</Text>
+        <Image
+          style={styles.imageStyle}
+          source={require('../img/icono_aplicacion.png')}
+         />
       </View>
     );
   }
@@ -32,10 +35,14 @@ const styles = {
     color: '#fff',
   },
   screenStyle: {
-    backgroundColor: '#2196f3',
+    backgroundColor: '#00687c',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  imageStyle: {
+    height: 256,
+    width: 256
   }
 };
 
